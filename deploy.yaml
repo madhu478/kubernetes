@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jenkins-deploy
+spec:
+  replicas: 2
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template: 
+    metadata: 
+      labels:
+        app: jenkins
+        version: "1.0"
+    spec:
+      containers:
+      - name: jenkins
+        image: jenkins:alpine
+        ports:
+        - containerPort: 8080
+

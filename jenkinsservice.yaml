@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkinsservice
+  labels:
+    app: jenkins
+    version: "1.0"
+spec: 
+  selector:
+    app: jenkins
+    version: "1.0"
+  type: NodePort
+  ports:
+  - port: 8080
+    protocol: TCP
+    nodePort: 30001
