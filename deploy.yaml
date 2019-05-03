@@ -18,7 +18,9 @@ spec:
     spec:
       containers:
       - name: jenkins
-        image: jenkins:alpine
+        image: jenkins:1.0
         ports:
         - containerPort: 8080
+      imagePullSecrets:
+      - name: docker
 
