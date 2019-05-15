@@ -62,8 +62,7 @@ route {
   }
 }
 resource "aws_route_table_association" "pussubass" {
-  subnet_id      = "${aws_subnet.subnet1.id}"
-  subnet_id      = "${aws_subnet.subnet2.id}"
+  subnet_id      = ["${aws_subnet.subnet1.id}","${aws_subnet.subnet2.id}"]
   route_table_id = "${aws_route_table.mypubrt.id}"
 }
 
@@ -157,6 +156,19 @@ resource "aws_nat_gateway" "mynatgw2" {
     Name = "myNATgw_2"
   }
 }
+resource "aws_route_table" "myprirt" {
+vpc_id ="${aws_vpc.myvpc.id}"
+route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.myigw.id}"
+    }
+ tags = {
+ Name= MypriRt
+ }
+resource "aws_route_table_association" "prisubass" {
+ subnet_id = ["${aws_subnet.subnet3.id}", "${aws_subnet.subnet4.id}"]
+ route_table_id = "${aws_route_table.myprirt.id}"
+ }
  
 resource "aws_launch_configuration" "app_conf" {
   name          = "app_config"
