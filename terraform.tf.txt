@@ -1,7 +1,7 @@
 
 provider "aws" {
 region = "us-east-2"
-shared-credentials_file= "~/.aws/credentials"
+shared_credentials_file= "~/.aws/credentials"
 profile = "phani"
 }
 resource "aws_vpc" "myvpc" {
@@ -86,7 +86,7 @@ resource "aws_nat_gateway" "mynatgw1" {
 }    protocol    = "TCP"
     # Please restrict your ingress to only necessary IPs and ports.
     # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = ["0.0.0.0/0"]
 }
 
 egress {
@@ -108,7 +108,7 @@ ingress {
     protocol    = "TCP"
     # Please restrict your ingress to only necessary IPs and ports.
     # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = ["0.0.0.0/0"]
 }
 
 egress {
@@ -130,7 +130,7 @@ ingress {
     protocol    = "TCP"
     # Please restrict your ingress to only necessary IPs and ports.
     # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = ["0.0.0.0/0"]
 }
 
 egress {
@@ -139,6 +139,9 @@ egress {
     protocol        = "TCP"
     cidr_blocks     = ["0.0.0.0/0"]
   }
+}
+resource "aws_eip" "nat" {
+  vpc      = true
 }
 resource "aws_nat_gateway" "mynatgw1" {
   allocation_id = "${aws_eip.nat.id}"
