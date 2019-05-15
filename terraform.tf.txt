@@ -181,3 +181,15 @@ resource "aws_autoscaling_policy" "upapp" {
   cooldown               = 300
   autoscaling_group_name = "${aws_autoscaling_group.AutoAPP.name}"
 }
+resource "aws_sns_topic" "appin"{
+  name = "App_increase"
+}
+resource "aws_autoscaling_notification" "Increase_APP" {
+  group_names = ["${aws_autoscaling_group.AutoAPP.name}"]
+  notifications = [
+    "autoscaling:EC2_INSTANCE_LAUNCH",
+    "autoscaling:EC2_INSTANCE_TERMINATE",
+    "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
+   ]
+  topic_arn = "${aws_sns_topic.appin.arn}"
+  }
