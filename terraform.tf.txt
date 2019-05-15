@@ -1,7 +1,6 @@
-
 provider "aws" {
 region = "us-east-2"
-shared-credentials_file= "~/.aws/credentials"
+shared_credentials_file= "~/.aws/credentials"
 profile = "phani"
 }
 resource "aws_vpc" "myvpc" {
