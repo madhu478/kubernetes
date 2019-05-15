@@ -202,3 +202,8 @@ resource "aws_autoscaling_notification" "Decrease_APP" {
   ]
    topic_arn = "${aws_sns_topic.appde.arn}"
    }
+resource "aws_sns_topic_subscription" "auto_app" {
+  topic_arn = ["${aws_sns_topic.appin.arn}",${aws_sns_topic.appde.arn}"]
+  protocol  = "sms"
+  endpoint  = "+918143236456"
+}
